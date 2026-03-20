@@ -1,120 +1,82 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
 import './App.css'
+import {useEffect, useState} from "react";
+import api from './services/api'
+import axios from "axios";
+
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [loanAmount, setLoanAmount] = useState<number>(2000)
+  const [loanPeriod, setLoanPeriod] = useState<number>(12)
+  const [personalCode, setPersonalCode] = useState<string>("")
+
+  const [decision, setDecision] = useState<any>(null);
+  const [error, setError] = useState<string>("");
+
+  useEffect(() => {
+    if (!personalCode.trim()) {
+      setDecision(null);
+      setError("Enter a personal code.")
+      return;
+    }
+
+    const timer = setTimeout(async () => {
+      try {
+        setDecision(null);
+        setError("");
+
+        if (personalCode.trim().length !== 11) {
+          setDecision(null);
+          setError("The personal code needs to be 11 numbers long!");
+          return;
+        }
+
+        const response = await api.post("/loan/decision", {
+          personalCode,
+          loanAmount,
+          loanPeriod,
+        });
+
+        setDecision(response.data);
+      } catch (e) {
+        if (axios.isAxiosError(e)) {
+          setError(e.response?.data?.message || e.message || "Failed to fetch decision");
+        }
+      }
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [loanAmount, loanPeriod]);
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+      <div className="search">
+        <p>Personal code</p>
+        <input type="text" value={personalCode} onChange={event => setPersonalCode(event.target.value)}/>
+        <p>Loan amount: {loanAmount}</p>
+        <input
+            type="range"
+            min={2000}
+            max={10000}
+            step={100}
+            value={loanAmount}
+            onChange={event => setLoanAmount(Number(event.target.value))}
+        />
 
-      <div className="ticks"></div>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
+        <p>Loan period: {loanPeriod}</p>
+        <input
+            type="range"
+            min={12}
+            max={60}
+            step={1}
+            value={loanPeriod}
+            onChange={event => setLoanPeriod(Number(event.target.value))}
+        />
+        {error && <p className="error-text">{error}</p>}
+        <div className="decision-card">
+          <p><strong>Approved amount:</strong> {decision?.loanAmount ?? "N/A"}</p>
+          <p><strong>Loan period:</strong> {decision?.loanPeriod ?? "N/A"} months</p>
         </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+      </div>
   )
 }
 
