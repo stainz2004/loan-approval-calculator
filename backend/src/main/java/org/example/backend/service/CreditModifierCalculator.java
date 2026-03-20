@@ -8,10 +8,13 @@ import org.springframework.stereotype.Service;
 public class CreditModifierCalculator {
 
 
-
     public int getCreditModifier(String personalCode) {
         if (personalCode == null || personalCode.isBlank()) {
             throw new PersonalCodeException("Personal code cannot be empty");
+        }
+
+        if (personalCode.length() != 11) {
+            throw new PersonalCodeException("Personal code must be 11 characters long!");
         }
 
         int lastDigit = extractLastDigit(personalCode);
@@ -25,7 +28,7 @@ public class CreditModifierCalculator {
     private static int extractLastDigit(String personalCode) {
         char lastChar = personalCode.charAt(personalCode.length() - 1);
         if (!Character.isDigit(lastChar)) {
-            throw new PersonalCodeException("Personal code must end with a digit");
+            throw new PersonalCodeException("Personal code must not contain characters!");
         }
         return Character.getNumericValue(lastChar);
     }
