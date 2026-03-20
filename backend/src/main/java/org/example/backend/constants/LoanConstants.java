@@ -1,5 +1,9 @@
 package org.example.backend.constants;
 
+
+/**
+ * Holds all constants in 1 place that are needed for application.
+ */
 public class LoanConstants {
     public static final int MINIMUM_LOAN_AMOUNT = 2000;
     public static final int MAXIMUM_LOAN_AMOUNT = 10000;

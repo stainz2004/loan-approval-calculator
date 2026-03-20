@@ -8,6 +8,10 @@ import org.example.backend.exception.InvalidLoanPeriod;
 import org.example.backend.exception.NoLoanException;
 import org.springframework.stereotype.Service;
 
+/**
+ * A service class that calculates maximum loan that we would approve of.
+ * If no loan is approved based on current information then increases the loan period.
+ */
 @Service
 @RequiredArgsConstructor
 public class LoanDecisionCalculator {

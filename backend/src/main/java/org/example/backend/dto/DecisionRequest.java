@@ -9,6 +9,8 @@ import lombok.Data;
 
 @Data
 public class DecisionRequest {
+
+    // Simple personal code validation to mock real life example.
     @NotBlank
     @Size(min =11, max =11, message = "Personal code must be 11 characters long!")
     private String personalCode;

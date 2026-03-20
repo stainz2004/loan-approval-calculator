@@ -19,6 +19,13 @@ public class DecisionController {
     private final DecisionService decisionService;
 
 
+    /**
+     * An endpoint that handles loan decision requests.
+     * Endpoint either returns a valid result, if any data is wrong then returns an exception containing of the cause.
+     *
+     * @param decisionRequest Requests body that contains customers ID, preferred loan amount and loan period.
+     * @return A ResponseEntity with the decision body containing of the approved loan amount and period.
+     */
     @PostMapping("/decision")
     public ResponseEntity<DecisionResponse> requestDecision(@Valid @RequestBody DecisionRequest decisionRequest) {
         DecisionResponse decisionResponse = decisionService.calculateMaximumApprovedLoan(decisionRequest);

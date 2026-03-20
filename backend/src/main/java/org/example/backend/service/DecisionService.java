@@ -6,6 +6,9 @@ import org.example.backend.dto.DecisionResponse;
 import org.example.backend.exception.NoLoanException;
 import org.springframework.stereotype.Service;
 
+/**
+ * A service class that calculates the maximum loan we would approve based on customers ID, loan amount and period.
+ */
 @Service
 @RequiredArgsConstructor
 public class DecisionService {

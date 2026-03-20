@@ -4,10 +4,25 @@ import org.example.backend.constants.LoanConstants;
 import org.example.backend.exception.PersonalCodeException;
 import org.springframework.stereotype.Service;
 
+/**
+ * A service class that extracts the credit modifier from customers personal code.
+ * Gets the credit modifier based on the last number of the personal code.
+ */
 @Service
 public class CreditModifierCalculator {
 
 
+    /**
+     * Validates that the personal code is not null, blank and is 11 characters long (to mimic a somewhat real life situation).
+     * Checks the last digit of the personal code to see what category it falls under of.
+     * lastDigit < 2 -> Debt
+     * 2 <= lastDigit < 4 -> Credit score 100
+     * 4 <= lastDigit < 7 -> Credit score 300
+     * 7 <= lastDigit < 9 -> Credit score 1000
+     *
+     * @param personalCode Customers personal code.
+     * @return The credit modifier based on customers personal code.
+     */
     public int getCreditModifier(String personalCode) {
         if (personalCode == null || personalCode.isBlank()) {
             throw new PersonalCodeException("Personal code cannot be empty");
@@ -25,6 +40,12 @@ public class CreditModifierCalculator {
         return LoanConstants.SEGMENT_3_CREDIT_MODIFIER;
     }
 
+    /**
+     * Extracts the last number of customers personal code.
+     *
+     * @param personalCode Customers personal code.
+     * @return The last digit of the personal code.
+     */
     private static int extractLastDigit(String personalCode) {
         char lastChar = personalCode.charAt(personalCode.length() - 1);
         if (!Character.isDigit(lastChar)) {

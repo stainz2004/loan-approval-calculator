@@ -12,10 +12,11 @@ function App() {
   const [decision, setDecision] = useState<any>(null);
   const [error, setError] = useState<string>("");
 
+  // Made it so every time either one of the sliders is moved then it runs the backend request, personal code changes do not trigger it as that would be annoying to a customer.
   useEffect(() => {
     if (!personalCode.trim()) {
       setDecision(null);
-      setError("Enter a personal code.")
+      setError("Please enter a personal code.")
       return;
     }
 
