@@ -17,7 +17,7 @@ public class DecisionRequest {
     @NotNull
     @Min(12)
     @Max(60)
-    private int loanPeriod;
+    private Integer loanPeriod;
     @NotNull
     @Min(2000)
     @Max(10000)

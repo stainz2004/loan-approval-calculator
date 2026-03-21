@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class DecisionResponse {
-    private int loanAmount;
-    private int loanPeriod;
+    private Integer loanAmount;
+    private Integer loanPeriod;
 }
