@@ -1,5 +1,5 @@
 import './App.css'
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import api from './services/api'
 import axios from "axios";
 
@@ -8,39 +8,56 @@ function App() {
   const [loanAmount, setLoanAmount] = useState<number>(2000)
   const [loanPeriod, setLoanPeriod] = useState<number>(12)
   const [personalCode, setPersonalCode] = useState<string>("")
+  const personalCodeRef = useRef<string>("");
 
-  const [decision, setDecision] = useState<any>(null);
+  const [decision, setDecision] = useState<LoanDecision | null>(null);
   const [error, setError] = useState<string>("");
 
-  // Made it so every time either one of the sliders is moved then it runs the backend request, personal code changes do not trigger it as that would be annoying to a customer.
-  useEffect(() => {
-    if (!personalCode.trim()) {
+  interface LoanDecision {
+    loanAmount: number;
+    loanPeriod: number;
+  }
+
+  const handlePersonalCodeChange = (value: string) => {
+    setPersonalCode(value);
+    personalCodeRef.current = value;
+
+    if (!value.trim()) {
+      setError("Please enter a personal code.");
       setDecision(null);
-      setError("Please enter a personal code.")
       return;
     }
 
+    setError("");
+  };
+
+  // Made it so every time either one of the sliders is moved then it runs the backend request, personal code changes do not trigger it as that would be annoying to a customer.
+  useEffect(() => {
     const timer = setTimeout(async () => {
+      if (!personalCodeRef.current.trim()) {
+        setDecision(null);
+        return;
+      }
+
       try {
         setDecision(null);
         setError("");
 
-        if (personalCode.trim().length !== 11) {
-          setDecision(null);
-          setError("The personal code needs to be 11 numbers long!");
-          return;
-        }
-
         const response = await api.post("/loan/decision", {
-          personalCode,
+          personalCode: personalCodeRef.current,
           loanAmount,
           loanPeriod,
         });
 
         setDecision(response.data);
+        setError("");
       } catch (e) {
+        setDecision(null);
+
         if (axios.isAxiosError(e)) {
           setError(e.response?.data?.message || e.message || "Failed to fetch decision");
+        } else {
+          setError("Failed to fetch decision");
         }
       }
     }, 300);
@@ -51,7 +68,7 @@ function App() {
   return (
       <div className="search">
         <p>Personal code</p>
-        <input type="text" value={personalCode} onChange={event => setPersonalCode(event.target.value)}/>
+        <input type="text" value={personalCode} onChange={event => handlePersonalCodeChange(event.target.value)}/>
         <p>Loan amount: {loanAmount}</p>
         <input
             type="range"
@@ -73,10 +90,12 @@ function App() {
             onChange={event => setLoanPeriod(Number(event.target.value))}
         />
         {error && <p className="error-text">{error}</p>}
-        <div className="decision-card">
-          <p><strong>Approved amount:</strong> {decision?.loanAmount ?? "N/A"}</p>
-          <p><strong>Loan period:</strong> {decision?.loanPeriod ?? "N/A"} months</p>
-        </div>
+        {!error && decision && (
+          <div className="decision-card">
+            <p><strong>Approved amount:</strong> {decision.loanAmount}</p>
+            <p><strong>Loan period:</strong> {decision.loanPeriod} months</p>
+          </div>
+        )}
       </div>
   )
 }
