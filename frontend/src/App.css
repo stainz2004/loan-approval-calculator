@@ -1,33 +1,28 @@
-#root {
+body {
   margin: 0;
-  padding: 0;
-  width: 100%;
-  min-height: 100%;
+  min-height: 90vh;
+  display: grid;
+  place-items: center;
+  padding: 16px;
   background-color: #e3d2ff;
 }
 
 .error-text {
   color: #dc2626;
-  font-size:0.9rem;
-  margin:0;
-}
-
-#root {
-  min-height: 100vh;
-  display: grid;
-  place-items: center;
-  padding: 16px;
+  font-size: 0.9rem;
+  margin: 0;
 }
 
 .search {
   width: min(420px, 90vw);
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  padding: 20px;
+  gap: 18px;
+  padding: 30px;
   border-radius: 12px;
   background: #ffffff;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  text-align: center;
 }
 
 input[type="range"] {
@@ -40,7 +35,20 @@ input[type="range"] {
 
 p {
   font-family: Inter, sans-serif;
+  font-size: 1.1rem;
   font-weight: 500;
   color: rgb(33, 9, 58);
-  line-height: 28px;
+  line-height: 22px;
+  align-content: center;
+}
+
+.search p {
+  margin: 0;
+}
+
+.personal-code-input {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
 }

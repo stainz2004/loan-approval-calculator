@@ -36,6 +36,7 @@ function App() {
     const timer = setTimeout(async () => {
       if (!personalCodeRef.current.trim()) {
         setDecision(null);
+        setError("Please enter a personal code.");
         return;
       }
 
@@ -68,7 +69,7 @@ function App() {
   return (
       <div className="search">
         <p>Personal code</p>
-        <input type="text" value={personalCode} onChange={event => handlePersonalCodeChange(event.target.value)}/>
+        <input className="personal-code-input" type="text" value={personalCode} onChange={event => handlePersonalCodeChange(event.target.value)}/>
         <p>Loan amount: {loanAmount}</p>
         <input
             type="range"
