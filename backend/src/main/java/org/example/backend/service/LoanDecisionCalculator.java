@@ -42,7 +42,7 @@ public class LoanDecisionCalculator {
             return findApprovedLoanWithExtendedPeriod(creditModifier, loanAmount, loanPeriod);
         }
 
-        int maximumLoan = calculateMaximumLoan(creditModifier, loanPeriod);
+        long maximumLoan = calculateMaximumLoan(creditModifier, loanPeriod);
         return buildDecisionResponse(loanPeriod, maximumLoan);
     }
 
@@ -72,8 +72,8 @@ public class LoanDecisionCalculator {
      * @param period The loan period in months.
      * @return The calculated maximum loan amount, capped at the defined maximum.
      */
-    private int calculateMaximumLoan(int creditModifier, int period) {
-        return Math.min(LoanConstants.MAXIMUM_LOAN_AMOUNT, creditModifier * period);
+    private long calculateMaximumLoan(int creditModifier, int period) {
+        return Math.min(LoanConstants.MAXIMUM_LOAN_AMOUNT, (long) creditModifier * period);
     }
 
     /**
@@ -95,7 +95,7 @@ public class LoanDecisionCalculator {
      * @param loanAmount The amount of the loan being approved.
      * @return A DecisionResponse object containing the loan period and amount.
      */
-    private DecisionResponse buildDecisionResponse(int loanPeriod, int loanAmount) {
+    private DecisionResponse buildDecisionResponse(int loanPeriod, long loanAmount) {
         DecisionResponse decisionResponse = new DecisionResponse();
         decisionResponse.setLoanPeriod(loanPeriod);
         decisionResponse.setLoanAmount(loanAmount);

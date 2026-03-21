@@ -31,7 +31,7 @@ public class DecisionServiceTests {
         decisionRequest.setPersonalCode("12345678902");
 
         DecisionResponse decisionResponse = new DecisionResponse();
-        decisionResponse.setLoanAmount(2400);
+        decisionResponse.setLoanAmount(2400L);
         decisionResponse.setLoanPeriod(24);
 
         when(creditModifierCalculator.getCreditModifier("12345678902")).thenReturn(100);
@@ -115,7 +115,7 @@ public class DecisionServiceTests {
         decisionRequest.setPersonalCode("12345678904");
 
         DecisionResponse decisionResponse = new DecisionResponse();
-        decisionResponse.setLoanAmount(6600);
+        decisionResponse.setLoanAmount(6600L);
         decisionResponse.setLoanPeriod(22);
 
         when(creditModifierCalculator.getCreditModifier("12345678904")).thenReturn(300);

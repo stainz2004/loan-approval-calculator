@@ -26,7 +26,7 @@ public class DecisionService {
      */
     public DecisionResponse calculateLoanDecision(DecisionRequest decisionRequest) {
         String personalCode = decisionRequest.getPersonalCode();
-        Long loanAmount = decisionRequest.getLoanAmount();
+        long loanAmount = decisionRequest.getLoanAmount();
         int loanPeriod = decisionRequest.getLoanPeriod();
 
         int creditModifier = creditModifierCalculator.getCreditModifier(personalCode);
