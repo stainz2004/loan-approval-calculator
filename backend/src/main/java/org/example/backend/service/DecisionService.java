@@ -19,6 +19,7 @@ public class DecisionService {
 
     /**
      * Calculates the maximum approved loan amount based on the provided decision request.
+     * Service that talks with the controller and calls the necessary services to calculate the maximum approved loan amount and period.
      *
      * @param decisionRequest The request containing the personal code, loan amount, and loan period.
      * @return A DecisionResponse object containing the approved loan period and amount.
