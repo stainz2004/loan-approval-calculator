@@ -30,10 +30,10 @@ public class LoanDecisionCalculator {
      */
     public DecisionResponse calculateMaximumApprovedAmount(int creditModifier, long loanAmount, int loanPeriod) {
         if (loanAmount < LoanConstants.MINIMUM_LOAN_AMOUNT || loanAmount > LoanConstants.MAXIMUM_LOAN_AMOUNT) {
-            throw new InvalidLoanAmount("loanAmount must be between 2000€ and 10000€!");
+            throw new InvalidLoanAmount("Loan amount must be between 2000€ and 10000€!");
         }
         if (loanPeriod < LoanConstants.MINIMUM_LOAN_PERIOD || loanPeriod > LoanConstants.MAXIMUM_LOAN_PERIOD) {
-            throw new InvalidLoanPeriod("loanPeriod must be between 12 and 60 months!");
+            throw new InvalidLoanPeriod("Loan period must be between 12 and 60 months!");
         }
 
 

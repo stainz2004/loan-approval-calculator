@@ -28,7 +28,7 @@ public class DecisionController {
      */
     @PostMapping("/decision")
     public ResponseEntity<DecisionResponse> requestDecision(@Valid @RequestBody DecisionRequest decisionRequest) {
-        DecisionResponse decisionResponse = decisionService.calculateMaximumApprovedLoan(decisionRequest);
+        DecisionResponse decisionResponse = decisionService.calculateLoanDecision(decisionRequest);
         return ResponseEntity.ok().body(decisionResponse);
     }
 }

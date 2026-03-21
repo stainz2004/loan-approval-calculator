@@ -24,7 +24,7 @@ public class DecisionService {
      * @return A DecisionResponse object containing the approved loan period and amount.
      * @throws NoLoanException If no valid loan is found based on the provided information.
      */
-    public DecisionResponse calculateMaximumApprovedLoan(DecisionRequest decisionRequest) {
+    public DecisionResponse calculateLoanDecision(DecisionRequest decisionRequest) {
         String personalCode = decisionRequest.getPersonalCode();
         Long loanAmount = decisionRequest.getLoanAmount();
         int loanPeriod = decisionRequest.getLoanPeriod();
