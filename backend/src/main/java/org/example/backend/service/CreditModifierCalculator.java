@@ -22,6 +22,7 @@ public class CreditModifierCalculator {
      *
      * @param personalCode Customers personal code.
      * @return The credit modifier based on customers personal code.
+     * @throws PersonalCodeException If the personal code is null, blank, not 11 characters long or contains characters.
      */
     public int getCreditModifier(String personalCode) {
         if (personalCode == null || personalCode.isBlank()) {
@@ -45,6 +46,7 @@ public class CreditModifierCalculator {
      *
      * @param personalCode Customers personal code.
      * @return The last digit of the personal code.
+     * @throws PersonalCodeException If the last character of the personal code is not a digit.
      */
     private static int extractLastDigit(String personalCode) {
         char lastChar = personalCode.charAt(personalCode.length() - 1);

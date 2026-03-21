@@ -17,6 +17,13 @@ public class DecisionService {
     private final CreditModifierCalculator creditModifierCalculator;
 
 
+    /**
+     * Calculates the maximum approved loan amount based on the provided decision request.
+     *
+     * @param decisionRequest The request containing the personal code, loan amount, and loan period.
+     * @return A DecisionResponse object containing the approved loan period and amount.
+     * @throws NoLoanException If no valid loan is found based on the provided information.
+     */
     public DecisionResponse calculateMaximumApprovedLoan(DecisionRequest decisionRequest) {
         String personalCode = decisionRequest.getPersonalCode();
         Long loanAmount = decisionRequest.getLoanAmount();
