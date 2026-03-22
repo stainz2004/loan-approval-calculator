@@ -2,6 +2,8 @@
 
 This is a simple loan approval calculator that takes into account various factors such as credit score, income, and loan amount to determine whether a loan application is approved or denied.
 
+Frontend design was influenced by the design of Inbanks loan calculator.
+
 I implemented a simple decision engine that takes in the users personal code, loan amount and loan period. Using that information the engine first tries to
 find the person's credit score based on these rules:
 

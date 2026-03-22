@@ -74,6 +74,7 @@ function App() {
   }, [loanAmount, loanPeriod]);
 
   return (
+      // Tried to make the design looks similar to Inbanks design.
       <div className="search">
         <p>Personal code</p>
         <input className="personal-code-input" type="text" value={personalCode} onChange={event => handlePersonalCodeChange(event.target.value)}/>
