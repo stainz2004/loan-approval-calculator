@@ -34,17 +34,19 @@ For the backend decision engine I also wrote some tests to make sure that the lo
 2. Navigate to the project directory.
 
 Open a terminal and run the following commands:
-```bash
+```
 cd backend
 ./gradlew bootRun
 ```
 
 Open another terminal
-```bash
+```
 cd frontend
 npm install
 npm run dev
 ```
+
+If the project does not start correctly, then please message me the issue and I will fix it ASAP.
 
 ## Implemented Features
 
@@ -54,3 +56,8 @@ npm run dev
 - If no approved loan was found for the given information then the calculator will try to find another loan period that would be approved.
 - If the person has bad credit (debt) then the decision engine will always return "Denied".
 - Tests for the backend decision engine to ensure that the logic is working as expected.
+
+## My suggestion for the take home assignment
+
+I would improve the assignment by making the expectations a bit clearer. For example, it would be helpful to mention what is evaluated the most, whether the focus is more on the backend logic or if the frontend/UI is equally important.
+I would also clarify some parts of the task, like the credit modifier. At first it wasn’t fully clear how it should be determined, and I later understood that I could define my own logic. It would help to either provide some rules for it or clearly state that it is up to the candidate.
