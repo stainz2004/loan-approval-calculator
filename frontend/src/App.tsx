@@ -5,6 +5,13 @@ import axios from "axios";
 
 
 function App() {
+  const MAX_LOAN_AMOUNT = 10000;
+  const MIN_LOAN_AMOUNT = 2000;
+  const MIN_LOAN_PERIOD = 12;
+  const MAX_LOAN_PERIOD = 60;
+  const MIN_LOAN_PERIOD_STEP = 6;
+  const MIN_LOAN_AMOUNT_STEP = 100;
+
   const [loanAmount, setLoanAmount] = useState<number>(2000)
   const [loanPeriod, setLoanPeriod] = useState<number>(12)
   const [personalCode, setPersonalCode] = useState<string>("")
@@ -73,9 +80,9 @@ function App() {
         <p>Loan amount: {loanAmount}</p>
         <input
             type="range"
-            min={2000}
-            max={10000}
-            step={100}
+            min={MIN_LOAN_AMOUNT}
+            max={MAX_LOAN_AMOUNT}
+            step={MIN_LOAN_AMOUNT_STEP}
             value={loanAmount}
             onChange={event => setLoanAmount(Number(event.target.value))}
         />
@@ -84,9 +91,9 @@ function App() {
         <p>Loan period: {loanPeriod}</p>
         <input
             type="range"
-            min={12}
-            max={60}
-            step={1}
+            min={MIN_LOAN_PERIOD}
+            max={MAX_LOAN_PERIOD}
+            step={MIN_LOAN_PERIOD_STEP}
             value={loanPeriod}
             onChange={event => setLoanPeriod(Number(event.target.value))}
         />
