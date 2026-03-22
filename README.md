@@ -2,7 +2,9 @@
 
 This is a simple loan approval calculator that takes into account various factors such as credit score, income, and loan amount to determine whether a loan application is approved or denied.
 
-Frontend design was influenced by the design of Inbanks loan calculator.
+Frontend design was influenced by Inbanks loan calculator. Made it so inputting the personal code does not automatically trigger the loan approval process as that can be annoying for the user. Instead you need to change the fields for either loan amount/period to trigger the process.
+
+The loan amount can only be incremented/decreased by 100 and the loan period can only be incremented/decreased by 6 months. This is to mock the process while in the real world the user could enter any amount.
 
 I implemented a simple decision engine that takes in the users personal code, loan amount and loan period. Using that information the engine first tries to
 find the person's credit score based on these rules:
@@ -44,10 +46,11 @@ npm install
 npm run dev
 ```
 
-## Features
+## Implemented Features
 
 - Input fields for personal code, loan amount and loan period.
 - Calculates the maximum loan amount based on the applicant's personal code, loan amount and loan period.
 - Displays the result of the loan approval process.
 - If no approved loan was found for the given information then the calculator will try to find another loan period that would be approved.
 - If the person has bad credit (debt) then the decision engine will always return "Denied".
+- Tests for the backend decision engine to ensure that the logic is working as expected.
